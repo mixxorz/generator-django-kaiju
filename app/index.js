@@ -15,7 +15,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
 
         // Have Yeoman greet the user.
         this.log(yosay(
-            'Yo Kaiju!'
+            'Yo Django Kaiju!'
         ));
 
         var prompts = [{
