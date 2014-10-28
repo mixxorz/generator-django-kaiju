@@ -1,15 +1,16 @@
 'use strict';
+var fs = require('fs');
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
+
 
 var DjangoKaijuGenerator = yeoman.generators.Base.extend({
     initializing: function() {
         this.pkg = require('../package.json');
         this.projectName = process.cwd().split(path.sep).pop();
     },
-
     prompting: function() {
         var done = this.async();
 
@@ -31,7 +32,13 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             done();
         }.bind(this));
     },
-
+    validate: function() {
+        if (!this.isValidDjangoApp()) {
+            this.log('I couldn\'t find a valid Django app \'' + this.projectName + '\'.');
+            this.log('Make sure you run me in the root of your Django project. (The one with your manage.py file)');
+            process.exit(1);
+        }
+    },
     writing: {
         app: function() {
             this.dest.mkdir('app');
@@ -51,5 +58,15 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
         this.installDependencies();
     }
 });
+
+DjangoKaijuGenerator.prototype.isValidDjangoApp = function() {
+    var isValid = true;
+
+    isValid = fs.existsSync(path.join(this.destinationRoot(), 'manage.py'));
+    isValid = fs.existsSync(path.join(this.destinationRoot(), this.projectName, '__init__.py'));
+    isValid = fs.existsSync(path.join(this.destinationRoot(), this.projectName, 'settings.py'));
+
+    return isValid;
+};
 
 module.exports = DjangoKaijuGenerator;
