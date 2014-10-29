@@ -1,7 +1,7 @@
 'use strict';
 var fs = require('fs');
-var util = require('util');
 var path = require('path');
+var util = require('util');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 
@@ -53,18 +53,33 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
         }
     },
     writing: {
-        app: function() {
-            this.dest.mkdir('app');
-            this.dest.mkdir('app/templates');
+        djangoFiles: function() {
+            // Scaffold the core app
+            this.dest.mkdir(path.join(this.projectName, 'apps'));
+            this.dest.write(path.join(this.projectName, 'apps', '__init__.py'), '');
+            this.dest.mkdir(path.join(this.projectName, 'apps', 'core'));
+            // Use Django's generator to scaffold the core app
+            this.spawnCommand('python manage.py startapp core ' + path.join(this.projectName, 'apps', 'core'));
+            // Copy templates
+            this.bulkDirectory(path.join('kaiju', 'apps', 'core', 'templates'), path.join(this.projectName, 'apps', 'core', 'templates'));
 
-            this.src.copy('_package.json', 'package.json');
-            this.src.copy('_bower.json', 'bower.json');
-        },
 
-        projectfiles: function() {
-            this.src.copy('editorconfig', '.editorconfig');
-            this.src.copy('jshintrc', '.jshintrc');
+
+            this.dest.mkdir(path.join(this.projectName, 'settings'));
+            this.dest.write(path.join(this.projectName, 'settings', '__init__.py'), '');
         }
+        // app: function() {
+        //     this.dest.mkdir('app');
+        //     this.dest.mkdir('app/templates');
+
+        //     this.src.copy('_package.json', 'package.json');
+        //     this.src.copy('_bower.json', 'bower.json');
+        // },
+
+        // projectfiles: function() {
+        //     this.src.copy('editorconfig', '.editorconfig');
+        //     this.src.copy('jshintrc', '.jshintrc');
+        // }
     },
 
     end: function() {

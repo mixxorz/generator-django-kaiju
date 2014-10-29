@@ -1,0 +1,4 @@
+# Place your base dependencies here
+django
+dj-static
+
