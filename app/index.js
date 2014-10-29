@@ -7,6 +7,19 @@ var yosay = require('yosay');
 
 
 var DjangoKaijuGenerator = yeoman.generators.Base.extend({
+    // Override constructor
+    constructor: function() {
+        // Calling the super constructor is important so our generator is correctly setup
+        yeoman.generators.Base.apply(this, arguments);
+
+        // Skip Install flag
+        this.option('skip-install', {
+            desc: 'Skip installing bower and npm dependencies.',
+            type: Boolean,
+            defaults: false,
+            hide: false
+        });
+    },
     initializing: function() {
         this.pkg = require('../package.json');
         this.projectName = process.cwd().split(path.sep).pop();
@@ -33,7 +46,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
         }.bind(this));
     },
     validate: function() {
-        if (!this.isValidDjangoApp()) {
+        if (!this._isValidDjangoApp()) {
             this.log('I couldn\'t find a valid Django app \'' + this.projectName + '\'.');
             this.log('Make sure you run me in the root of your Django project. (The one with your manage.py file)');
             process.exit(1);
@@ -55,18 +68,20 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
     },
 
     end: function() {
-        this.installDependencies();
+        if (!this.options['skip-install']) {
+            this.installDependencies();
+        }
+    },
+    // Helper methods
+    _isValidDjangoApp: function() {
+        var isValid = true;
+
+        isValid = fs.existsSync(path.join(this.destinationRoot(), 'manage.py'));
+        isValid = fs.existsSync(path.join(this.destinationRoot(), this.projectName, '__init__.py'));
+        isValid = fs.existsSync(path.join(this.destinationRoot(), this.projectName, 'settings.py'));
+
+        return isValid;
     }
 });
-
-DjangoKaijuGenerator.prototype.isValidDjangoApp = function() {
-    var isValid = true;
-
-    isValid = fs.existsSync(path.join(this.destinationRoot(), 'manage.py'));
-    isValid = fs.existsSync(path.join(this.destinationRoot(), this.projectName, '__init__.py'));
-    isValid = fs.existsSync(path.join(this.destinationRoot(), this.projectName, 'settings.py'));
-
-    return isValid;
-};
 
 module.exports = DjangoKaijuGenerator;
