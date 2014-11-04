@@ -67,6 +67,15 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
 
             this.dest.mkdir(path.join(this.projectName, 'settings'));
             this.dest.write(path.join(this.projectName, 'settings', '__init__.py'), '');
+        },
+        projectFiles: function() {
+            this.src.template('.bowerrc', '.bowerrc');
+            this.src.template('README.md', 'README.md');
+        },
+        herokuFiles: function() {
+            this.src.copy('Procfile', 'Procfile');
+            this.src.copy('requirements.txt', 'requirements.txt');
+            this.bulkDirectory('bin', 'bin');
         }
         // app: function() {
         //     this.dest.mkdir('app');
