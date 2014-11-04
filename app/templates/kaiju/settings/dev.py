@@ -17,7 +17,7 @@ DATABASES = {
 }
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'apps', 'core', 'static', 'app'),
+    os.path.join(BASE_DIR, 'apps', 'core', 'assets', 'app'),
 )
 
 # Import machine specific dev settings

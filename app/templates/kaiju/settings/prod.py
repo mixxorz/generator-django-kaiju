@@ -25,3 +25,6 @@ DATABASES = {
     'default': dj_database_url.config()
 }
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'apps', 'core', 'assets', 'dist'),
+)

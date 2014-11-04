@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        base: 'kaiju/apps/core/static',
+        base: 'kaiju/apps/core/assets',
         app: '<%= base %>/app',
         dist: '<%= base %>/dist',
         build: '.build',
