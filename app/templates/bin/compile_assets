@@ -6,12 +6,15 @@ indent() {
     [ $(uname) == "Darwin" ] && sed -l "$RE" || sed -u "$RE"
 }
 
-cd kaiju/static/
+PROJECT_NAME=<%= projectName %>
+
+pushd $PROJECT_NAME/static/
 echo "-----> Running bower install"
 bower install -q
 echo "-----> Running npm install"
 npm install
 echo "-----> grunt compile-sass"
-grunt compile-sass
+grunt publish
+popd
 
 echo

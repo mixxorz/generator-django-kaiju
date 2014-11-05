@@ -70,14 +70,22 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
         },
         projectFiles: function() {
             this.template('.bowerrc', '.bowerrc');
-            this.template('README.md', 'README.md');
-            this.src.copy('Gruntfile.js', 'Gruntfile.js');
             this.src.copy('.gitignore', '.gitignore');
+            this.src.copy('Gruntfile.js', 'Gruntfile.js');
+            this.src.copy('package.json', 'package.json');
+            this.template('README.md', 'README.md');
         },
         herokuFiles: function() {
+            // TODO: Add prompt if the user wants Heroku integration
             this.template('Procfile', 'Procfile');
             this.src.copy('requirements.txt', 'requirements.txt');
-            this.bulkDirectory('bin', 'bin');
+            this.dest.mkdir('bin');
+            // this.template('bin/cleanup', 'bin/cleanup');
+            // this.template('bin/compile_assets', 'bin/compile_assets');
+            this.src.copy('bin/install_nodejs', 'bin/install_nodejs');
+            this.src.copy('bin/install_npm_packages', 'bin/install_npm_packages');
+            this.src.copy('bin/post_compile', 'bin/post_compile');
+            // this.template('bin/run_collectstatic', 'bin/run_collectstatic');
         }
         // app: function() {
         //     this.dest.mkdir('app');
