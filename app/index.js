@@ -100,6 +100,9 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
         projectFiles: function() {
             this.template('.bowerrc', '.bowerrc');
             this.src.copy('.gitignore', '.gitignore');
+            // TODO: Add prompt if the user wants Foundation 5
+            // TODO: Add Font-Awesome support
+            this.template('bower.json', 'bower.json');
             this.src.copy('Gruntfile.js', 'Gruntfile.js');
             this.src.copy('package.json', 'package.json');
             this.template('README.md', 'README.md');

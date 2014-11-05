@@ -1,0 +1,15 @@
+{
+  "name": "<%= projectName %>",
+  "version": "0.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "amanda/apps/core/assets/app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "zurb/bower-foundation#~5.4.7"
+  }
+}
