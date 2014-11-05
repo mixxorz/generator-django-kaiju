@@ -69,11 +69,13 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             this.dest.write(path.join(this.projectName, 'settings', '__init__.py'), '');
         },
         projectFiles: function() {
-            this.src.template('.bowerrc', '.bowerrc');
-            this.src.template('README.md', 'README.md');
+            this.template('.bowerrc', '.bowerrc');
+            this.template('README.md', 'README.md');
+            this.src.copy('Gruntfile.js', 'Gruntfile.js');
+            this.src.copy('.gitignore', '.gitignore');
         },
         herokuFiles: function() {
-            this.src.copy('Procfile', 'Procfile');
+            this.template('Procfile', 'Procfile');
             this.src.copy('requirements.txt', 'requirements.txt');
             this.bulkDirectory('bin', 'bin');
         }

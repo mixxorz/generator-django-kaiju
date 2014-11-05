@@ -2,10 +2,14 @@ module.exports = function(grunt) {
     'use strict';
 
     require('load-grunt-tasks')(grunt);
+    var path = require('path');
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        base: 'kaiju/apps/core/assets',
+        // Change projectName to a different string value if your project name
+        // Is not the name of the folder
+        projectName: process.cwd().split(path.sep).pop(),
+        base: '<%= projectName %>/apps/core/assets',
         app: '<%= base %>/app',
         dist: '<%= base %>/dist',
         build: '.build',

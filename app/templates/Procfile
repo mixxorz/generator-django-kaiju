@@ -1,2 +1,2 @@
-web: waitress-serve --port=$PORT kaiju.wsgi:application
+web: waitress-serve --port=$PORT <%= projectName %>.wsgi:application
 
