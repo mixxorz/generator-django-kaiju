@@ -6,7 +6,7 @@ indent() {
     [ $(uname) == "Darwin" ] && sed -l "$RE" || sed -u "$RE"
 }
 
-PROJECT_NAME=<%= projectName %>
+PROJECT_NAME="<%= projectName %>"
 
 echo "-----> A little bit of housekeeping"
 rm -rf $PROJECT_NAME/static

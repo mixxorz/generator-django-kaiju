@@ -6,7 +6,7 @@ indent() {
     [ $(uname) == "Darwin" ] && sed -l "$RE" || sed -u "$RE"
 }
 
-PROJECT_NAME=<%= projectName %>
+PROJECT_NAME="<%= projectName %>"
 
 pushd $PROJECT_NAME/static/
 echo "-----> Running bower install"
