@@ -187,7 +187,7 @@ module.exports = function(grunt) {
 
         shell: {
             runserver: {
-                command: 'python manage.py runserver --settings=kaiju.settings.dev',
+                command: 'python manage.py runserver --settings=<%= projectName %>.settings.dev',
                 options: {
                     stdout: true,
                     stdin: true,

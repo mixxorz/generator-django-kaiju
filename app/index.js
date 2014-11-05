@@ -96,6 +96,9 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
                 }
                 done();
             });
+
+            fs.renameSync(path.join(this.destinationRoot(), this.projectName, 'settings.py'),
+                path.join(this.destinationRoot(), this.projectName, 'settings', 'settings.orig.py'));
         },
         projectFiles: function() {
             this.template('.bowerrc', '.bowerrc');
