@@ -61,7 +61,8 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             // Use Django's generator to scaffold the core app
             this.spawnCommand('python manage.py startapp core ' + path.join(this.projectName, 'apps', 'core'));
             // Copy templates
-            this.bulkDirectory(path.join('kaiju', 'apps', 'core', 'templates'), path.join(this.projectName, 'apps', 'core', 'templates'));
+            this.src.copy('kaiju/apps/core/templates/base.html', this.projectName + '/apps/core/templates/base.html');
+            this.src.copy('kaiju/apps/core/templates/core/index.html', this.projectName + '/apps/core/templates/core/index.html');
 
 
 
