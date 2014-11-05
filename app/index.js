@@ -1,4 +1,5 @@
 'use strict';
+var chalk = require('chalk');
 var fs = require('fs');
 var path = require('path');
 var util = require('util');
@@ -54,20 +55,47 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
     },
     writing: {
         djangoFiles: function() {
+            var done = this.async();
             // Scaffold the core app
             this.dest.mkdir(path.join(this.projectName, 'apps'));
             this.dest.write(path.join(this.projectName, 'apps', '__init__.py'), '');
             this.dest.mkdir(path.join(this.projectName, 'apps', 'core'));
-            // Use Django's generator to scaffold the core app
-            this.spawnCommand('python manage.py startapp core ' + path.join(this.projectName, 'apps', 'core'));
             // Copy templates
             this.src.copy('kaiju/apps/core/templates/base.html', this.projectName + '/apps/core/templates/base.html');
             this.src.copy('kaiju/apps/core/templates/core/index.html', this.projectName + '/apps/core/templates/core/index.html');
 
-
+            // Use Django's generator to scaffold the core app
+            var startapp = this.spawnCommand('python manage.py startapp core ' + path.join(this.projectName, 'apps', 'core'));
+            startapp.on('close', function(code, signal) {
+                done();
+            });
+        },
+        djangoSettings: function() {
+            var done = this.async();
 
             this.dest.mkdir(path.join(this.projectName, 'settings'));
             this.dest.write(path.join(this.projectName, 'settings', '__init__.py'), '');
+            this.template('kaiju/settings/base.py', this.projectName + '/settings/base.py');
+            this.template('kaiju/settings/prod.py', this.projectName + '/settings/prod.py');
+
+            var generator = this;
+
+            fs.readFile(path.join(this.destinationRoot(), this.projectName, 'settings.py'), 'utf8', function(err, data){
+                if (err) {
+                    generator.log(chalk.red(err));
+                }
+                if (data.indexOf('SECRET_KEY') < 0) {
+                    generator.log(chalk.red('I couldn\'t find SECRET_KEY in settings.py. You need to set it manually in settings/base.py'));
+                } else {
+                    var regexp = /SECRET_KEY = '(.*)'/g;
+                    var context = {
+                        projectName: generator.projectName,
+                        secretKey: regexp.exec(data)[1]
+                    };
+                    generator.template('kaiju/settings/dev.py', generator.projectName + '/settings/dev.py', context);
+                }
+                done();
+            });
         },
         projectFiles: function() {
             this.template('.bowerrc', '.bowerrc');

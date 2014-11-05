@@ -1,10 +1,10 @@
 """Development settings
 """
 
-from kaiju.settings.base import *
+from <%= projectName %>.settings.base import *
 
 # This key should only be used on development
-SECRET_KEY = 'ib968&zqh=_0b)r-vb=t62l#x*%$gauvs=dbc-=$ecx*()81^+'
+SECRET_KEY = '<%= secretKey %>'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -22,6 +22,6 @@ STATICFILES_DIRS = (
 
 # Import machine specific dev settings
 try:
-    from kaiju.settings.local import *
+    from <%= projectName %>.settings.local import *
 except ImportError:
     pass

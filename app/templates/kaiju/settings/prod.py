@@ -7,7 +7,7 @@ import os
 
 import dj_database_url
 
-from kaiju.settings.base import *
+from <%= projectName %>.settings.base import *
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')

@@ -1,5 +1,5 @@
 """
-Django settings for kaiju project.
+Django settings for <%= projectName %> project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -31,7 +31,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'kaiju.apps.core',
+    '<%= projectName %>.apps.core',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -44,9 +44,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'kaiju.urls'
+ROOT_URLCONF = '<%= projectName %>.urls'
 
-WSGI_APPLICATION = 'kaiju.wsgi.application'
+WSGI_APPLICATION = '<%= projectName %>.wsgi.application'
 
 
 # Internationalization
