@@ -61,7 +61,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             this.dest.write(path.join(this.projectName, 'apps', '__init__.py'), '');
             this.dest.mkdir(path.join(this.projectName, 'apps', 'core'));
             // Copy templates
-            this.src.copy('kaiju/apps/core/templates/base.html', this.projectName + '/apps/core/templates/base.html');
+            this.template('kaiju/apps/core/templates/base.html', this.projectName + '/apps/core/templates/base.html');
             this.src.copy('kaiju/apps/core/templates/core/index.html', this.projectName + '/apps/core/templates/core/index.html');
 
             try {
