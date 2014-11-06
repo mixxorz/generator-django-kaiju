@@ -2,7 +2,6 @@
 include/
 lib/
 staticfiles/
-assets/
 media/
 .build
 

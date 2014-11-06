@@ -123,6 +123,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             this.template('README.md', 'README.md');
         },
         foundationFiles: function() {
+            this.src.copy('kaiju/apps/core/assets/.gitignore', this.projectName + '/apps/core/assets/.gitignore');
             this.src.copy('kaiju/apps/core/assets/app/scss/app.scss', this.projectName + '/apps/core/assets/app/scss/app.scss');
             this.src.copy('kaiju/apps/core/assets/app/scss/_settings.scss', this.projectName + '/apps/core/assets/app/scss/_settings.scss');
             this.src.copy('kaiju/apps/core/assets/app/scss/_styles.scss', this.projectName + '/apps/core/assets/app/scss/_styles.scss');

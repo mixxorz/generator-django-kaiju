@@ -178,7 +178,7 @@ module.exports = function(grunt) {
 
         concurrent: {
             target: {
-                tasks: ['shell:runserver', 'watch'],
+                tasks: ['shell:runserver', 'watch', 'open'],
                 options: {
                     logConcurrentOutput: true
                 }
@@ -208,6 +208,11 @@ module.exports = function(grunt) {
                 }
             }
         },
+        open: {
+            dev: {
+                path: 'http://127.0.0.1:8000'
+            }
+        }
     });
 
     // Default: Runs the django dev server and the grunt livereload server
