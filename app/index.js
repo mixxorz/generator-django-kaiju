@@ -88,6 +88,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             this.dest.write(path.join(this.projectName, 'settings', '__init__.py'), '');
             this.template('kaiju/settings/base.py', this.projectName + '/settings/base.py');
             this.template('kaiju/settings/prod.py', this.projectName + '/settings/prod.py');
+            this.src.copy('kaiju/apps/core/context_processors.py', this.projectName + '/apps/core/context_processors.py');
 
             var generator = this;
 

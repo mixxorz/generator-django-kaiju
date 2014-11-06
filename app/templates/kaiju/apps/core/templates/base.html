@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Hello, World!{% endblock title %} | Kaiju</title>
     {% load staticfiles %}
-    {% if debug %}
+    {% if DEBUG %}
     <link rel="stylesheet" href="{% static "css/app.css" %}">
     <script src="{% static "bower_components/modernizr/modernizr.js" %}"></script>
     {% else %}
@@ -20,7 +20,7 @@
     {% block content %}
     {% endblock content %}
 
-    {% if debug %}
+    {% if DEBUG %}
     <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
     <script src="{% static "bower_components/fastclick/lib/fastclick.js" %}"></script>
     <script src="{% static "bower_components/foundation/js/foundation/foundation.js" %}"></script>
