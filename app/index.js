@@ -64,8 +64,13 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             this.src.copy('kaiju/apps/core/templates/base.html', this.projectName + '/apps/core/templates/base.html');
             this.src.copy('kaiju/apps/core/templates/core/index.html', this.projectName + '/apps/core/templates/core/index.html');
 
-            fs.renameSync(path.join(this.destinationRoot(), this.projectName, 'urls.py'),
-                path.join(this.destinationRoot(), this.projectName, 'urls.orig.py'));
+            try {
+                fs.renameSync(path.join(this.destinationRoot(), this.projectName, 'urls.py'),
+                    path.join(this.destinationRoot(), this.projectName, 'urls.orig.py'));
+            }
+            catch (err){
+                this.log(chalk.yellow('Couldn\'t find urls.py'));
+            }
 
             this.template('kaiju/urls.py', this.projectName + '/urls.py');
 
@@ -115,6 +120,11 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             this.src.copy('Gruntfile.js', 'Gruntfile.js');
             this.src.copy('package.json', 'package.json');
             this.template('README.md', 'README.md');
+        },
+        foundationFiles: function() {
+            this.src.copy('kaiju/apps/core/assets/app/scss/app.scss', this.projectName + '/apps/core/assets/app/scss/app.scss');
+            this.src.copy('kaiju/apps/core/assets/app/scss/_settings.scss', this.projectName + '/apps/core/assets/app/scss/_settings.scss');
+            this.src.copy('kaiju/apps/core/assets/app/scss/_styles.scss', this.projectName + '/apps/core/assets/app/scss/_styles.scss');
         },
         herokuFiles: function() {
             // TODO: Add prompt if the user wants Heroku integration
