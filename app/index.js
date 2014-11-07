@@ -20,6 +20,13 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             defaults: false,
             hide: false
         });
+
+        this.option('no-django', {
+            desc: 'Don\'t create a new Django project and use the one in this folder.',
+            type: Boolean,
+            defaults: false,
+            hide: false
+        });
     },
     initializing: function() {
         this.pkg = require('../package.json');
@@ -46,10 +53,20 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             done();
         }.bind(this));
     },
+    scaffoldDjangoProject: function() {
+        if (!this.options['no-django']) {
+            var done = this.async();
+            // Use django-admin.py to scaffold new django project.
+            var startproject = this.spawnCommand('django-admin startproject ' + this.projectName + ' .');
+            startproject.on('close', function(code, signal) {
+                done();
+            });
+        }
+    },
     validate: function() {
         if (!this._isValidDjangoApp()) {
-            this.log('I couldn\'t find a valid Django app \'' + this.projectName + '\'.');
-            this.log('Make sure you run me in the root of your Django project. (The one with your manage.py file)');
+            this.log(chalk.red('I couldn\'t find a valid Django app \'' + this.projectName + '\'.'));
+            this.log(chalk.red('Make sure you run me in the root of your Django project. (The one with your manage.py file)'));
             process.exit(1);
         }
     },
@@ -67,8 +84,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             try {
                 fs.renameSync(path.join(this.destinationRoot(), this.projectName, 'urls.py'),
                     path.join(this.destinationRoot(), this.projectName, 'urls.orig.py'));
-            }
-            catch (err){
+            } catch (err) {
                 this.log(chalk.yellow('Couldn\'t find urls.py'));
             }
 
@@ -92,7 +108,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
 
             var generator = this;
 
-            fs.readFile(path.join(this.destinationRoot(), this.projectName, 'settings.py'), 'utf8', function(err, data){
+            fs.readFile(path.join(this.destinationRoot(), this.projectName, 'settings.py'), 'utf8', function(err, data) {
                 if (err) {
                     generator.log(chalk.red(err));
                 }
