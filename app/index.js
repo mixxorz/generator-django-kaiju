@@ -13,6 +13,12 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
         // Calling the super constructor is important so our generator is correctly setup
         yeoman.generators.Base.apply(this, arguments);
 
+        this.argument('projectName', {
+            desc: 'The name for your project',
+            required: false,
+            type: String
+        });
+
         // Skip Install flag
         this.option('skip-install', {
             desc: 'Skip installing bower and npm dependencies.',
@@ -21,6 +27,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             hide: false
         });
 
+        // Don't scaffold a django app
         this.option('no-django', {
             desc: 'Don\'t create a new Django project and use the one in this folder.',
             type: Boolean,
@@ -30,28 +37,36 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
     },
     initializing: function() {
         this.pkg = require('../package.json');
-        this.projectName = process.cwd().split(path.sep).pop();
+
+        if (this['projectName']) {
+            this.projectName = this['projectName'];
+            this.skipPrompt = true;
+        } else {
+            this.projectName = process.cwd().split(path.sep).pop();
+            this.skipPrompt = false;
+        }
     },
     prompting: function() {
-        var done = this.async();
-
         // Have Yeoman greet the user.
         this.log(yosay(
             'Yo Django Kaiju!'
         ));
 
-        var prompts = [{
-            type: 'input',
-            name: 'projectName',
-            message: 'What\'s the name of your project?',
-            default: this.projectName
-        }];
+        if (!this.skipPrompt) {
+            var done = this.async();
+            var prompts = [{
+                type: 'input',
+                name: 'projectName',
+                message: 'What\'s the name of your project?',
+                default: this.projectName
+            }];
 
-        this.prompt(prompts, function(props) {
-            this.projectName = props.projectName;
+            this.prompt(prompts, function(props) {
+                this.projectName = props.projectName;
 
-            done();
-        }.bind(this));
+                done();
+            }.bind(this));
+        }
     },
     scaffoldDjangoProject: function() {
         if (!this.options['no-django']) {
