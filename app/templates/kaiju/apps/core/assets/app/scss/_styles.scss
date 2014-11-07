@@ -1,1 +1,9 @@
-// Your project's sass goes here
+// Your project styles goes here
+body {
+    background-color: $white-smoke;
+}
+
+.kaiju-wrapper {
+    position: fixed;
+    bottom: 40%;
+}
