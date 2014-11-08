@@ -188,6 +188,10 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             this.src.copy('package.json', 'package.json');
             this.template('README.md', 'README.md');
             this.src.copy('kaiju/apps/core/assets/.gitignore', this.projectName + '/apps/core/assets/.gitignore');
+            this.dest.mkdir('requirements');
+            this.template('requirements/base.txt', 'requirements/base.txt');
+            this.src.copy('requirements/dev.txt', 'requirements/dev.txt');
+            this.template('requirements/prod.txt', 'requirements/prod.txt');
         },
         foundationFiles: function() {
             if (this.features.indexOf('foundation') !== -1) {
