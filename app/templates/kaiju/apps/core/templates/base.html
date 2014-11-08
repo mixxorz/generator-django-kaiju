@@ -3,15 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Hello, World!{% endblock title %} | <%= projectName %></title>
+  <title>{% block title %}<%= projectName %>{% endblock title %} | <%= projectName %></title>
   {% load staticfiles %}
   {% if DEBUG %}
   <link rel="stylesheet" href="{% static "css/app.css" %}">
+  <% if(_.contains(features, 'foundation')){ %>
   <script src="{% static "bower_components/modernizr/modernizr.js" %}"></script>
+  <% } %>
   {% else %}
   <link rel="stylesheet" href="{% static "css/lib.min.css" %}">
   <link rel="stylesheet" href="{% static "css/app.min.css" %}">
+  <% if(_.contains(features, 'foundation')){ %>
   <script src="{% static "js/mondernizr.min.js" %}"></script>
+  <% } %>
   {% endif %}
   {% block head %}
   {% endblock head %}
@@ -21,6 +25,7 @@
   {% endblock content %}
 
   {% if DEBUG %}
+  <% if(_.contains(features, 'foundation')){ %>
   <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
   <script src="{% static "bower_components/fastclick/lib/fastclick.js" %}"></script>
   <script src="{% static "bower_components/foundation/js/foundation/foundation.js" %}"></script>
@@ -40,11 +45,14 @@
   <script src="{% static "bower_components/foundation/js/foundation/foundation.tab.js" %}"></script>
   <script src="{% static "bower_components/foundation/js/foundation/foundation.tooltip.js" %}"></script>
   <script src="{% static "bower_components/foundation/js/foundation/foundation.topbar.js" %}"></script>
+  <% } %>
   <script src="{% static "js/app.js" %}"></script>
   <script src="//localhost:35729/livereload.js"></script>
   {% else %}
   <script src="{% static "js/lib.min.js" %}"></script>
+  <% if(_.contains(features, 'foundation')){ %>
   <script src="{% static "js/foundation.min.js" %}"></script>
+  <% } %>
   <script src="{% static "js/app.min.js" %}"></script>
   {% endif %}
 

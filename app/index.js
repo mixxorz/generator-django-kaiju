@@ -169,15 +169,29 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             // TODO: Add prompt if the user wants Foundation 5
             // TODO: Add Font-Awesome support
             this.template('bower.json', 'bower.json');
-            this.src.copy('Gruntfile.js', 'Gruntfile.js');
+            // This particular file requires us to change the underscore tags
+            // to {{ }}
+            this.template(
+                'Gruntfile.js',
+                'Gruntfile.js',
+                this, {
+                    evaluate: /\{\{([\s\S]+?)\}\}/g,
+                    interpolate: /\{\{=([\s\S]+?)\}\}/g,
+                    escape: /\{\{-([\s\S]+?)\}\}/g
+                }
+            );
             this.src.copy('package.json', 'package.json');
             this.template('README.md', 'README.md');
+            this.src.copy('kaiju/apps/core/assets/.gitignore', this.projectName + '/apps/core/assets/.gitignore');
         },
         foundationFiles: function() {
-            this.src.copy('kaiju/apps/core/assets/.gitignore', this.projectName + '/apps/core/assets/.gitignore');
-            this.src.copy('kaiju/apps/core/assets/app/scss/app.scss', this.projectName + '/apps/core/assets/app/scss/app.scss');
-            this.src.copy('kaiju/apps/core/assets/app/scss/_settings.scss', this.projectName + '/apps/core/assets/app/scss/_settings.scss');
-            this.src.copy('kaiju/apps/core/assets/app/scss/_styles.scss', this.projectName + '/apps/core/assets/app/scss/_styles.scss');
+            if(this.features.indexOf('foundation') !== -1) {
+                this.src.copy('kaiju/apps/core/assets/app/scss/app.scss', this.projectName + '/apps/core/assets/app/scss/app.scss');
+                this.src.copy('kaiju/apps/core/assets/app/scss/_settings.scss', this.projectName + '/apps/core/assets/app/scss/_settings.scss');
+                this.src.copy('kaiju/apps/core/assets/app/scss/_styles.scss', this.projectName + '/apps/core/assets/app/scss/_styles.scss');
+            } else {
+                this.dest.write(this.projectName + '/apps/core/assets/app/scss/app.scss', '// Your sass styles go here');
+            }
         },
         herokuFiles: function() {
             // TODO: Add prompt if the user wants Heroku integration

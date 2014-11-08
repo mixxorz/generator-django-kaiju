@@ -100,9 +100,12 @@ module.exports = function(grunt) {
                     ],
                     // JavaScript Libraries
                     '<%= build %>/js/lib.js': [
+                        {{ if(_.contains(features, 'foundation')){ }}
                         '<%= app %>/bower_components/jquery/dist/jquery.js',
                         '<%= app %>/bower_components/fastclick/lib/fastclick.js'
+                        {{ } }}
                     ],
+                    {{ if(_.contains(features, 'foundation')){ }}
                     // Foundation JS files. Comment out files you don't need.
                     '<%= build %>/js/foundation.js': [
                         '<%= app %>/bower_components/foundation/js/foundation/foundation.js',
@@ -123,6 +126,7 @@ module.exports = function(grunt) {
                         '<%= app %>/bower_components/foundation/js/foundation/foundation.tooltip.js',
                         '<%= app %>/bower_components/foundation/js/foundation/foundation.topbar.js'
                     ],
+                    {{ } }}
                     // Your JS files
                     '<%= build %>/js/app.js': [
                         // NOTE: Order matters.
@@ -163,9 +167,11 @@ module.exports = function(grunt) {
         },
 
         sass: {
+            {{ if(_.contains(features, 'foundation')){ }}
             options: {
                 includePaths: ['<%= app %>/bower_components/foundation/scss']
             },
+            {{ } }}
             dist: {
                 options: {
                     outputStyle: 'extended'
