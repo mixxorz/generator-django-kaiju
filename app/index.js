@@ -124,6 +124,12 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
 
             this.template('kaiju/urls.py', this.projectName + '/urls.py');
 
+            try {
+                fs.unlinkSync(path.join(this.destinationRoot(), this.projectName, 'wsgi.py'));
+            } catch (err) {}
+
+            this.template('kaiju/wsgi.py', this.projectName + '/wsgi.py');
+
 
             // Use Django's generator to scaffold the core app
             var startapp = this.spawnCommand('python manage.py startapp core ' + path.join(this.projectName, 'apps', 'core'));
