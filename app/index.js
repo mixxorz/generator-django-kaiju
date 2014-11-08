@@ -166,7 +166,6 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             this.template('.bowerrc', '.bowerrc');
             this.src.copy('.editorconfig', '.editorconfig');
             this.src.copy('.gitignore', '.gitignore');
-            // TODO: Add prompt if the user wants Foundation 5
             // TODO: Add Font-Awesome support
             this.template('bower.json', 'bower.json');
             // This particular file requires us to change the underscore tags
@@ -185,7 +184,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             this.src.copy('kaiju/apps/core/assets/.gitignore', this.projectName + '/apps/core/assets/.gitignore');
         },
         foundationFiles: function() {
-            if(this.features.indexOf('foundation') !== -1) {
+            if (this.features.indexOf('foundation') !== -1) {
                 this.src.copy('kaiju/apps/core/assets/app/scss/app.scss', this.projectName + '/apps/core/assets/app/scss/app.scss');
                 this.src.copy('kaiju/apps/core/assets/app/scss/_settings.scss', this.projectName + '/apps/core/assets/app/scss/_settings.scss');
                 this.src.copy('kaiju/apps/core/assets/app/scss/_styles.scss', this.projectName + '/apps/core/assets/app/scss/_styles.scss');
@@ -194,27 +193,28 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             }
         },
         herokuFiles: function() {
-            // TODO: Add prompt if the user wants Heroku integration
-            this.template('Procfile', 'Procfile');
-            this.src.copy('requirements.txt', 'requirements.txt');
-            this.dest.mkdir('bin');
-            this.template('bin/cleanup', 'bin/cleanup');
-            this.template('bin/compile_assets', 'bin/compile_assets');
-            this.src.copy('bin/install_nodejs', 'bin/install_nodejs');
-            this.src.copy('bin/install_npm_packages', 'bin/install_npm_packages');
-            this.src.copy('bin/post_compile', 'bin/post_compile');
+            if (this.features.indexOf('heroku') !== -1) {
+                this.template('Procfile', 'Procfile');
+                this.src.copy('requirements.txt', 'requirements.txt');
+                this.dest.mkdir('bin');
+                this.template('bin/cleanup', 'bin/cleanup');
+                this.template('bin/compile_assets', 'bin/compile_assets');
+                this.src.copy('bin/install_nodejs', 'bin/install_nodejs');
+                this.src.copy('bin/install_npm_packages', 'bin/install_npm_packages');
+                this.src.copy('bin/post_compile', 'bin/post_compile');
 
-            // This particular file requires us to change the underscore tags
-            // to {{ }}
-            this.template(
-                'bin/run_collectstatic',
-                'bin/run_collectstatic',
-                this, {
-                    evaluate: /\{\{([\s\S]+?)\}\}/g,
-                    interpolate: /\{\{=([\s\S]+?)\}\}/g,
-                    escape: /\{\{-([\s\S]+?)\}\}/g
-                }
-            );
+                // This particular file requires us to change the underscore tags
+                // to {{ }}
+                this.template(
+                    'bin/run_collectstatic',
+                    'bin/run_collectstatic',
+                    this, {
+                        evaluate: /\{\{([\s\S]+?)\}\}/g,
+                        interpolate: /\{\{=([\s\S]+?)\}\}/g,
+                        escape: /\{\{-([\s\S]+?)\}\}/g
+                    }
+                );
+            }
         }
         // app: function() {
         //     this.dest.mkdir('app');

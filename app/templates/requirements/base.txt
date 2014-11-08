@@ -1,4 +1,6 @@
 # Place your base dependencies here
 django
+<% if(_.contains(features, 'heroku')){ %>
 dj-static
+<% } %>
 
