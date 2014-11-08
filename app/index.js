@@ -40,10 +40,10 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
 
         if (this['projectName']) {
             this.projectName = this['projectName'];
-            this.skipPrompt = true;
+            this.skipProjectNamePrompt = true;
         } else {
             this.projectName = process.cwd().split(path.sep).pop();
-            this.skipPrompt = false;
+            this.skipProjectNamePrompt = false;
         }
     },
     prompting: function() {
@@ -52,21 +52,40 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             'Yo Django Kaiju!'
         ));
 
-        if (!this.skipPrompt) {
-            var done = this.async();
-            var prompts = [{
+        var done = this.async();
+
+        var prompts = [];
+
+        if (!this.skipProjectNamePrompt) {
+            prompts.push({
                 type: 'input',
                 name: 'projectName',
                 message: 'What\'s the name of your project?',
                 default: this.projectName
-            }];
-
-            this.prompt(prompts, function(props) {
-                this.projectName = props.projectName;
-
-                done();
-            }.bind(this));
+            });
         }
+
+        prompts.push({
+            type: 'checkbox',
+            name: 'features',
+            message: 'What stuff do you want to include?',
+            choices: [{
+                name: 'Foundation 5',
+                checked: true,
+                value: 'foundation'
+            }, {
+                name: 'Heroku integration',
+                checked: true,
+                value: 'heroku'
+            }]
+        });
+
+        this.prompt(prompts, function(props) {
+            this.projectName = props.projectName || this.projectName;
+            this.features = props.features;
+
+            done();
+        }.bind(this));
     },
     scaffoldDjangoProject: function() {
         if (!this.options['no-django']) {
