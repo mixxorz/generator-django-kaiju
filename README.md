@@ -5,6 +5,17 @@
 
 ## Getting Started
 
+### What does it do?
+This generator...
+
+* Scaffolds your Django app with good conventions. (core app, multiple settings, etc.)
+* Sets up `sass`
+* Sets up live reloading development server via grunt
+* Configures a `build` task that minifies and conatenates your css/js/images.
+* Sets up Foundation 5
+* Sets up Font Awesome
+* Sets up project for Heroku hosting (Procfile, post-compile scripts)
+
 ### Usage
 
 Install `generator-django-kaiju`:
@@ -37,18 +48,33 @@ Run `yo django-kaiju`, optionally passing your project's name
 yo django-kaiju [appname]
 ```
 
-Run `grunt` to start the django development server with live reloading css/js
+### Grunt tasks
 
-### What does it do?
-This generator...
+* `grunt [default]`  - starts the Django development server and the live reloading server.
+* `grunt build` - concatenates, copies and minifies css/js/images into `core/assets/dist`
 
-* Scaffolds your Django app with good conventions. (core app, multiple settings, etc.)
-* Sets up `sass`
-* Sets up live reloading development server via grunt
-* Configures a `build` task that minifies and conatenates your css/js/images.
-* Sets up Foundation 5
-* Sets up Font Awesome
-* Sets up project for Heroku hosting (Procfile, post-compile scripts)
+### Heroku
+A few things need to be setup in your Heroku app
+
+If you don't have one yet, create your app
+```
+heroku create
+```
+
+Set DISABLE_COLLECTSTATIC to 1
+```
+heroku config:set DISABLE_COLLECTSTATIC=1
+```
+
+Set DJANGO_SECRET_KEY to a django secret key. (You can generate one [here](http://www.miniwebtool.com/django-secret-key-generator/))
+```
+heroku config:set DJANGO_SECRET_KEY='<secret key>'
+```
+
+Finally, explicitly set your buildpack to use Heroku's Python buildpack
+```
+heroku config:set BUILDPACK_URL='https://github.com/heroku/heroku-buildpack-python'
+```
 
 
 ## License
