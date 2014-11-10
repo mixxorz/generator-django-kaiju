@@ -176,6 +176,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
             this.template('.bowerrc', '.bowerrc');
             this.src.copy('.editorconfig', '.editorconfig');
             this.src.copy('.gitignore', '.gitignore');
+            this.src.copy('.jshintrc', '.jshintrc');
             // TODO: Add Font-Awesome support
             this.template('bower.json', 'bower.json');
             // This particular file requires us to change the underscore tags
@@ -202,8 +203,10 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
                 this.src.copy('kaiju/apps/core/assets/app/scss/app.scss', this.projectName + '/apps/core/assets/app/scss/app.scss');
                 this.src.copy('kaiju/apps/core/assets/app/scss/_settings.scss', this.projectName + '/apps/core/assets/app/scss/_settings.scss');
                 this.src.copy('kaiju/apps/core/assets/app/scss/_styles.scss', this.projectName + '/apps/core/assets/app/scss/_styles.scss');
+                this.src.copy('kaiju/apps/core/assets/app/js/app.js', this.projectName + '/apps/core/assets/app/js/app.js');
             } else {
                 this.dest.write(this.projectName + '/apps/core/assets/app/scss/app.scss', '// Your sass styles go here');
+                this.dest.write(this.projectName + '/apps/core/assets/app/js/app.js', '// Your scripts go here');
             }
         },
         herokuFiles: function() {
