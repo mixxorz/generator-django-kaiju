@@ -6,6 +6,9 @@
   <title>{% block title %}<%= projectName %>{% endblock title %} | <%= projectName %></title>
   {% load staticfiles %}
   {% if DEBUG %}
+  <% if(_.contains(features, 'fontawesome')){ %>
+  <link rel="stylesheet" href="{% static "bower_components/font-awesome/css/font-awesome.css" %}">
+  <% } %>
   <link rel="stylesheet" href="{% static "css/app.css" %}">
   <% if(_.contains(features, 'foundation')){ %>
   <script src="{% static "bower_components/modernizr/modernizr.js" %}"></script>

@@ -74,6 +74,10 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
                 checked: true,
                 value: 'foundation'
             }, {
+                name: 'Font Awesome',
+                checked: true,
+                value: 'fontawesome'
+            }, {
                 name: 'Heroku integration',
                 checked: true,
                 value: 'heroku'

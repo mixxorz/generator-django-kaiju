@@ -45,7 +45,11 @@ module.exports = function(grunt) {
                     // Library fonts
                     expand: true,
                     flatten: true,
-                    src: ['<%= app %>/bower_components/font-awesome/fonts/**'],
+                    src: [
+                      {{ if(_.contains(features, 'fontawesome')){ }}
+                      '<%= app %>/bower_components/font-awesome/fonts/**',
+                      {{ } }}
+                    ],
                     dest: '<%= dist %>/fonts/',
                     filter: 'isFile'
                 }]
@@ -94,6 +98,9 @@ module.exports = function(grunt) {
                     // CSS Libraries
                     '<%= build %>/css/lib.css': [
                         // e.g. '<%= app %>/bower_components/animate.css/animate.css',
+                        {{ if(_.contains(features, 'fontawesome')){ }}
+                        '<%= app %>/bower_components/font-awesome/css/font-awesome.css',
+                        {{ } }}
                     ],
                     // Your CSS files
                     '<%= build %>/css/app.css': [
