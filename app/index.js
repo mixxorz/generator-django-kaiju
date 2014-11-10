@@ -185,7 +185,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
                     escape: /\{\{-([\s\S]+?)\}\}/g
                 }
             );
-            this.src.copy('package.json', 'package.json');
+            this.template('package.json', 'package.json');
             this.template('README.md', 'README.md');
             this.src.copy('kaiju/apps/core/assets/.gitignore', this.projectName + '/apps/core/assets/.gitignore');
             this.dest.mkdir('requirements');
