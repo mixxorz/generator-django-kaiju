@@ -11,7 +11,7 @@ This generator...
 * Scaffolds your Django app with good conventions. (core app, multiple settings, etc.)
 * Sets up `sass`
 * Sets up live reloading development server via grunt
-* Configures a `build` task that minifies and conatenates your css/js/images.
+* Configures a `build` task that minifies and concatenates your css/js/images.
 * Sets up Foundation 5
 * Sets up Font Awesome
 * Sets up project for Heroku hosting (Procfile, post-compile scripts)
