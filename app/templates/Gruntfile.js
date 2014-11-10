@@ -8,7 +8,8 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         // Change projectName to a different string value if your project name
         // Is not the name of the folder
-        projectName: '{{ projectName }}',
+        // Workaround for bug: <%= projectName %>
+        projectName: '{{= projectName }}',
         base: '<%= projectName %>/apps/core/assets',
         app: '<%= base %>/app',
         dist: '<%= base %>/dist',
@@ -169,7 +170,7 @@ module.exports = function(grunt) {
         sass: {
             {{ if(_.contains(features, 'foundation')){ }}
             options: {
-                includePaths: ['<%= app %>/bower_components/foundation/scss']
+                includePaths: ['{{= projectName }}/apps/core/assets/app/bower_components/foundation/scss']
             },
             {{ } }}
             dist: {
@@ -177,7 +178,7 @@ module.exports = function(grunt) {
                     outputStyle: 'extended'
                 },
                 files: {
-                    '<%= app %>/css/app.css': '<%= app %>/scss/app.scss'
+                    '{{= projectName }}/apps/core/assets/app/css/app.css': '{{= projectName }}/apps/core/assets/app/scss/app.scss'
                 }
             }
         },
