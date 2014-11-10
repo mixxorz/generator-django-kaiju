@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         // Change projectName to a different string value if your project name
         // Is not the name of the folder
-        projectName: process.cwd().split(path.sep).pop(),
+        projectName: '{{ projectName }}',
         base: '<%= projectName %>/apps/core/assets',
         app: '<%= base %>/app',
         dist: '<%= base %>/dist',
@@ -225,5 +225,5 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['sass', 'concurrent']);
 
     // Copies fonts, optimizes images, concatenates and minifies css/js, all sent to dist/
-    grunt.registerTask('build', ['clean', 'copy', 'concat', 'cssmin', 'uglify', 'newer:imagemin']);
+    grunt.registerTask('build', ['clean', 'sass', 'copy', 'concat', 'cssmin', 'uglify', 'newer:imagemin']);
 };
