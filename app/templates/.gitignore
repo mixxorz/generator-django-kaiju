@@ -1,0 +1,29 @@
+*.pyc
+include/
+lib/
+staticfiles/
+media/
+.build
+
+# Sass-cache
+*.sass-cache/
+
+# sqlite3 db
+*.db
+*.sqlite3
+
+# sublime stuff
+*.sublime-workspace
+
+# Virtual env
+venv/
+
+# Mac crap
+*.DS_Store
+
+# Ignore settings/local.py
+*/settings/local.py
+
+# Node Stuff
+node_modules
+

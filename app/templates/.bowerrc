@@ -1,0 +1,3 @@
+{
+  "directory": "<%= projectName %>/apps/core/assets/app/bower_components"
+}

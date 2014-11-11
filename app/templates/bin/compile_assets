@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+indent() {
+    RE="s/^/       /"
+    [ $(uname) == "Darwin" ] && sed -l "$RE" || sed -u "$RE"
+}
+
+echo "-----> Running bower install"
+bower install -q
+echo "-----> Running npm install"
+npm install
+echo "-----> Building assets"
+grunt build
+
+echo

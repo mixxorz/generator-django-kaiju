@@ -1,0 +1,65 @@
+<!doctype html>
+<html class="no-js" lang="en" >
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}<%= projectName %>{% endblock title %} | <%= projectName %></title>
+  {% load staticfiles %}
+  {% if DEBUG %}
+  <% if(_.contains(features, 'fontawesome')){ %>
+  <link rel="stylesheet" href="{% static "bower_components/font-awesome/css/font-awesome.css" %}">
+  <% } %>
+  <link rel="stylesheet" href="{% static "css/app.css" %}">
+  <% if(_.contains(features, 'foundation')){ %>
+  <script src="{% static "bower_components/modernizr/modernizr.js" %}"></script>
+  <% } %>
+  {% else %}
+  <link rel="stylesheet" href="{% static "css/lib.min.css" %}">
+  <link rel="stylesheet" href="{% static "css/app.min.css" %}">
+  <% if(_.contains(features, 'foundation')){ %>
+  <script src="{% static "js/modernizr.min.js" %}"></script>
+  <% } %>
+  {% endif %}
+  {% block head %}
+  {% endblock head %}
+</head>
+<body>
+  {% block content %}
+  {% endblock content %}
+
+  {% if DEBUG %}
+  <% if(_.contains(features, 'foundation')){ %>
+  <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
+  <script src="{% static "bower_components/fastclick/lib/fastclick.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.abide.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.accordion.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.alert.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.clearing.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.dropdown.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.equalizer.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.interchange.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.joyride.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.magellan.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.offcanvas.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.orbit.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.reveal.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.slider.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.tab.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.tooltip.js" %}"></script>
+  <script src="{% static "bower_components/foundation/js/foundation/foundation.topbar.js" %}"></script>
+  <% } %>
+  <script src="{% static "js/app.js" %}"></script>
+  <script src="//localhost:35729/livereload.js"></script>
+  {% else %}
+  <script src="{% static "js/lib.min.js" %}"></script>
+  <% if(_.contains(features, 'foundation')){ %>
+  <script src="{% static "js/foundation.min.js" %}"></script>
+  <% } %>
+  <script src="{% static "js/app.min.js" %}"></script>
+  {% endif %}
+
+  {% block scripts %}
+  {% endblock scripts %}
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "<%= projectName %>",
+  "version": "0.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "<%= projectName %>/apps/core/assets/app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {<% if(_.contains(features, 'foundation')){ %>
+    "foundation": "zurb/bower-foundation#~5.4.7"<% } %><% if(_.contains(features, 'fontawesome')){ %>,
+    "font-awesome": "~4.2.0"<% } %>
+  }
+}
