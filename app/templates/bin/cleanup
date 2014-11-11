@@ -9,8 +9,9 @@ indent() {
 PROJECT_NAME="<%= projectName %>"
 
 echo "-----> A little bit of housekeeping"
-rm -rf $PROJECT_NAME/apps/core/assets/app
-rm -rf .build/
+rm -rf $PROJECT_NAME/apps/core/assets
+rm -rf .build
+rm -rf node_modules
 rm -rf $BUILD_DIR/.heroku/vendor/node
 
 echo
