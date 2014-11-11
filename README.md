@@ -56,6 +56,17 @@ yo django-kaiju [appname]
 ### Heroku
 A few things need to be setup in your Heroku app
 
+Initialize a git repo
+```
+git init
+```
+
+Add everything and commit
+```
+git add -A
+git commit -m "Initial commit for mydjangoproject"
+```
+
 If you don't have one yet, create your app
 ```
 heroku create
@@ -74,6 +85,11 @@ heroku config:set DJANGO_SECRET_KEY='<secret key>'
 Finally, explicitly set your buildpack to use Heroku's Python buildpack
 ```
 heroku config:set BUILDPACK_URL='https://github.com/heroku/heroku-buildpack-python'
+```
+
+You can now push your app to heroku
+```
+git push heroku master
 ```
 
 
