@@ -1,13 +1,13 @@
 {
   "name": "generator-django-kaiju",
-  "version": "0.0.0",
-  "description": "Yeoman generator",
+  "version": "1.0.0",
+  "description": "Yeoman generator for Django that includes a live reloading development server, sass support, Foundation 5 and Heroku integration.",
   "license": "MIT",
   "main": "app/index.js",
   "repository": "mixxorz/generator-django-kaiju",
   "author": {
     "name": "Mitchel Cabuloy",
-    "email": "",
+    "email": "mitchel.cabuloy@gmail.com",
     "url": "https://github.com/mixxorz"
   },
   "engines": {
