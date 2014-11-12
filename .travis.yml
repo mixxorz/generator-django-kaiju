@@ -1,7 +1,5 @@
-language: python
-python:
-  - '2.7'
-install:
-  - 'npm install'
-  - 'pip install django'
-script: 'npm test'
+language: node_js
+node_js:
+  - '0.10'
+before_install:
+  - 'sudo pip install django'
