@@ -9,10 +9,11 @@ var os = require('os');
 describe('django-kaiju:app', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../app'))
-      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .inDir(path.join(os.tmpdir(), './temptest'))
       .withOptions({ 'skip-install': true })
       .withPrompt({
-        someOption: true
+        projectName: 'temptest',
+        features: ['foundation', 'fontawesome','heroku']
       })
       .on('end', done);
   });
