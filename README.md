@@ -11,7 +11,7 @@ This generator...
 * Scaffolds your Django app with good conventions. (core app, multiple settings, etc.)
 * Sets up `sass`
 * Sets up live reloading development server via grunt
-* Configures a `build` task that minifies and conatenates your css/js/images.
+* Configures a `build` task that minifies and concatenates your css/js/images.
 * Sets up Foundation 5
 * Sets up Font Awesome
 * Sets up project for Heroku hosting (Procfile, post-compile scripts)
@@ -56,6 +56,17 @@ yo django-kaiju [appname]
 ### Heroku
 A few things need to be setup in your Heroku app
 
+Initialize a git repo
+```
+git init
+```
+
+Add everything and commit
+```
+git add -A
+git commit -m "Initial commit for mydjangoproject"
+```
+
 If you don't have one yet, create your app
 ```
 heroku create
@@ -74,6 +85,11 @@ heroku config:set DJANGO_SECRET_KEY='<secret key>'
 Finally, explicitly set your buildpack to use Heroku's Python buildpack
 ```
 heroku config:set BUILDPACK_URL='https://github.com/heroku/heroku-buildpack-python'
+```
+
+You can now push your app to heroku
+```
+git push heroku master
 ```
 
 
