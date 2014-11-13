@@ -1,4 +1,4 @@
-# generator-django-kaiju [![Build Status](https://secure.travis-ci.org/mixxorz/generator-django-kaiju.png?branch=master)](https://travis-ci.org/mixxorz/generator-django-kaiju)
+# generator-django-kaiju [![Build Status](https://travis-ci.org/mixxorz/generator-django-kaiju.svg?branch=master)](https://travis-ci.org/mixxorz/generator-django-kaiju)
 
 > [Yeoman](http://yeoman.io) generator for Django that includes a live reloading development server, sass support, Foundation 5 and Heroku integration.
 
@@ -28,7 +28,7 @@ Make a new directory, and `cd` into it:
 mkdir mydjangoproject && cd mydjangoproject
 ```
 
-Make a new `virtualenv` and activate it
+Make a new `virtualenv` and activate it (Optional)
 ```
 virtulenv venv
 source venv/bin/activate
@@ -36,11 +36,6 @@ source venv/bin/activate
 Or if you're using virtualenvwrapper
 ```
 mkvirtualenv myvenv
-```
-
-Install Django
-```
-pip install django
 ```
 
 Run `yo django-kaiju`, optionally passing your project's name
