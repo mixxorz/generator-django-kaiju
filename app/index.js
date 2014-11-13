@@ -120,10 +120,10 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
       this.template('kaiju/settings/dev.py', this.projectName + '/settings/dev.py');
     },
     projectFiles: function() {
-      this.template('.bowerrc', '.bowerrc');
-      this.src.copy('.editorconfig', '.editorconfig');
-      this.src.copy('.gitignore', '.gitignore');
-      this.src.copy('.jshintrc', '.jshintrc');
+      this.template('_bowerrc', '.bowerrc');
+      this.src.copy('_editorconfig', '.editorconfig');
+      this.src.copy('_gitignore', '.gitignore');
+      this.src.copy('_jshintrc', '.jshintrc');
       // TODO: Add Font-Awesome support
       this.template('bower.json', 'bower.json');
       // This particular file requires us to change the underscore tags
@@ -138,14 +138,13 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
         }
       );
       this.template('package.json', 'package.json');
-      this.template('README.md', 'README.md');
       this.dest.mkdir('requirements');
       this.template('requirements/base.txt', 'requirements/base.txt');
       this.src.copy('requirements/dev.txt', 'requirements/dev.txt');
       this.template('requirements/prod.txt', 'requirements/prod.txt');
     },
     foundationFiles: function() {
-      this.src.copy('kaiju/apps/core/assets/.gitignore', this.projectName + '/apps/core/assets/.gitignore');
+      this.src.copy('kaiju/apps/core/assets/_gitignore', this.projectName + '/apps/core/assets/.gitignore');
       if (this.features.indexOf('foundation') !== -1) {
         this.src.copy('kaiju/apps/core/assets/app/scss/app.scss', this.projectName + '/apps/core/assets/app/scss/app.scss');
         this.src.copy('kaiju/apps/core/assets/app/scss/_settings.scss', this.projectName + '/apps/core/assets/app/scss/_settings.scss');
