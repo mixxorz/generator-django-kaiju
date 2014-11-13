@@ -87,6 +87,14 @@ You can now push your app to heroku
 git push heroku master
 ```
 
+## Changelog
+
+**1.1**
+- Removed the need for django-admin to be in PATH during scaffolding
+
+**1.0**
+- Initial release
+
 
 ## License
 
