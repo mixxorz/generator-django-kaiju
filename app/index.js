@@ -91,26 +91,14 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
       done();
     }.bind(this));
   },
-  scaffoldDjangoProject: function() {
-    if (!this.options['no-django']) {
-      var done = this.async();
-      // Use django-admin.py to scaffold new django project.
-      var startproject = this.spawnCommand('django-admin startproject ' + this.projectName + ' .');
-      startproject.on('close', function(code, signal) {
-        done();
-      });
-    }
-  },
-  validate: function() {
-    if (!this._isValidDjangoApp()) {
-      this.log(chalk.red('I couldn\'t find a valid Django app \'' + this.projectName + '\'.'));
-      this.log(chalk.red('Make sure you run me in the root of your Django project. (The one with your manage.py file)'));
-      process.exit(1);
-    }
-  },
   writing: {
     djangoFiles: function() {
       var done = this.async();
+
+      // Base Django
+      this.secretKey = require('crypto').randomBytes(Math.ceil(50 * 3 / 4)).toString('base64');
+      this.template('manage.py', 'manage.py');
+
       // Scaffold the core app
       this.dest.mkdir(path.join(this.projectName, 'apps'));
       this.dest.write(path.join(this.projectName, 'apps', '__init__.py'), '');
@@ -118,59 +106,21 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
       // Copy templates
       this.template('kaiju/apps/core/templates/base.html', this.projectName + '/apps/core/templates/base.html');
       this.src.copy('kaiju/apps/core/templates/core/index.html', this.projectName + '/apps/core/templates/core/index.html');
-
-      try {
-        fs.renameSync(path.join(this.destinationRoot(), this.projectName, 'urls.py'),
-          path.join(this.destinationRoot(), this.projectName, 'urls.orig.py'));
-      } catch (err) {
-        this.log(chalk.yellow('Couldn\'t find urls.py'));
-      }
-
       this.template('kaiju/urls.py', this.projectName + '/urls.py');
-
-      try {
-        fs.unlinkSync(path.join(this.destinationRoot(), this.projectName, 'wsgi.py'));
-      } catch (err) {}
-
       this.template('kaiju/wsgi.py', this.projectName + '/wsgi.py');
-
-
-      // Use Django's generator to scaffold the core app
-      var startapp = this.spawnCommand('python manage.py startapp core ' + path.join(this.projectName, 'apps', 'core'));
-      startapp.on('close', function(code, signal) {
-        done();
-      });
-    },
-    djangoSettings: function() {
-      var done = this.async();
 
       this.dest.mkdir(path.join(this.projectName, 'settings'));
       this.dest.write(path.join(this.projectName, 'settings', '__init__.py'), '');
       this.template('kaiju/settings/base.py', this.projectName + '/settings/base.py');
       this.template('kaiju/settings/prod.py', this.projectName + '/settings/prod.py');
       this.src.copy('kaiju/apps/core/context_processors.py', this.projectName + '/apps/core/context_processors.py');
+      this.template('kaiju/settings/dev.py', this.projectName + '/settings/dev.py');
 
-      var generator = this;
-
-      fs.readFile(path.join(this.destinationRoot(), this.projectName, 'settings.py'), 'utf8', function(err, data) {
-        if (err) {
-          generator.log(chalk.red(err));
-        }
-        if (data.indexOf('SECRET_KEY') < 0) {
-          generator.log(chalk.red('I couldn\'t find SECRET_KEY in settings.py. You need to set it manually in settings/base.py'));
-        } else {
-          var regexp = /SECRET_KEY = '(.*)'/g;
-          var context = {
-            projectName: generator.projectName,
-            secretKey: regexp.exec(data)[1]
-          };
-          generator.template('kaiju/settings/dev.py', generator.projectName + '/settings/dev.py', context);
-        }
+      // Use Django's generator to scaffold the core app
+      var startapp = this.spawnCommand('python manage.py startapp core ' + path.join(this.projectName, 'apps', 'core'));
+      startapp.on('close', function(code, signal) {
         done();
       });
-
-      fs.renameSync(path.join(this.destinationRoot(), this.projectName, 'settings.py'),
-        path.join(this.destinationRoot(), this.projectName, 'settings', 'settings.orig.py'));
     },
     projectFiles: function() {
       this.template('.bowerrc', '.bowerrc');
@@ -233,18 +183,6 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
         );
       }
     }
-    // app: function() {
-    //     this.dest.mkdir('app');
-    //     this.dest.mkdir('app/templates');
-
-    //     this.src.copy('_package.json', 'package.json');
-    //     this.src.copy('_bower.json', 'bower.json');
-    // },
-
-    // projectfiles: function() {
-    //     this.src.copy('editorconfig', '.editorconfig');
-    //     this.src.copy('jshintrc', '.jshintrc');
-    // }
   },
 
   end: function() {
@@ -259,8 +197,8 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
     var isValid = true;
 
     isValid = fs.existsSync(path.join(this.destinationRoot(), 'manage.py'));
-    isValid = fs.existsSync(path.join(this.destinationRoot(), this.projectName, '__init__.py'));
-    isValid = fs.existsSync(path.join(this.destinationRoot(), this.projectName, 'settings.py'));
+    // isValid = fs.existsSync(path.join(this.destinationRoot(), this.projectName, '__init__.py'));
+    // isValid = fs.existsSync(path.join(this.destinationRoot(), this.projectName, 'settings.py'));
 
     return isValid;
   }
