@@ -61,7 +61,6 @@ describe('django-kaiju:app', function() {
       'bower.json',
       'Gruntfile.js',
       'package.json',
-      'README.md',
 
       // Requirements
       'requirements/base.txt',

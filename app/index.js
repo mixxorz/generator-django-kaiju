@@ -138,7 +138,6 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
         }
       );
       this.template('package.json', 'package.json');
-      this.template('README.md', 'README.md');
       this.dest.mkdir('requirements');
       this.template('requirements/base.txt', 'requirements/base.txt');
       this.src.copy('requirements/dev.txt', 'requirements/dev.txt');
