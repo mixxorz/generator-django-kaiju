@@ -24,6 +24,7 @@ describe('django-kaiju:app', function() {
     assert.file([
       // Django
       'manage.py',
+      'temptest/__init__.py',
       'temptest/apps/__init__.py',
       'temptest/urls.py',
       'temptest/wsgi.py',

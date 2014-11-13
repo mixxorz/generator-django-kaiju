@@ -92,6 +92,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
     djangoFiles: function() {
       // Base Django
       this.secretKey = require('crypto').randomBytes(Math.ceil(50 * 3 / 4)).toString('base64');
+      this.dest.write(path.join(this.projectName, '__init__.py'), '');
       this.template('manage.py', 'manage.py');
       this.template('kaiju/urls.py', this.projectName + '/urls.py');
       this.template('kaiju/wsgi.py', this.projectName + '/wsgi.py');
