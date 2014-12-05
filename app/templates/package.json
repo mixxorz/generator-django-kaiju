@@ -1,7 +1,10 @@
 {
   "name": "<%= projectName %>",
   "version": "0.1.0",
-  "devDependencies": {
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
     "node-sass": "~0.9.3",
     "grunt": "^0.4.5",
     "grunt-concurrent": "^1.0.0",
@@ -17,6 +20,8 @@
     "grunt-open": "^0.2.3",
     "grunt-sass": "~0.8.1",
     "grunt-shell": "^1.1.1",
-    "load-grunt-tasks": "^0.6.0"
+    "load-grunt-tasks": "^0.6.0",
+    "bower": "latest",
+    "grunt-cli": "latest"
   }
 }
