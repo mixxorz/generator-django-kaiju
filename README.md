@@ -69,7 +69,7 @@ heroku create
 
 Set DJANGO_SETTINGS_MODULE to `<your_app_name>.settings.prod`
 ```
-heroku config:set DJANGO_SETTINGS_MODULE="<your_app_name>.settings.prod"
+heroku config:set DJANGO_SETTINGS_MODULE='<your_app_name>.settings.prod'
 ```
 
 Set DJANGO_SECRET_KEY to a django secret key. (You can generate one [here](http://www.miniwebtool.com/django-secret-key-generator/))

@@ -1,6 +1,9 @@
 {
   "name": "<%= projectName %>",
   "version": "0.1.0",
+  "engines": {
+    "node": "0.10.x"
+  },
   "dependencies": {
     "node-sass": "~0.9.3",
     "grunt": "^0.4.5",
