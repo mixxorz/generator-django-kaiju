@@ -237,5 +237,5 @@ module.exports = function(grunt) {
 
     {{ if(_.contains(features, 'heroku')){ }}// For Heroku use
     grunt.registerTask('heroku', ['build']);
-    {{ } }
+    {{ } }}
 };
