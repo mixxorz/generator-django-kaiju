@@ -1,6 +1,7 @@
+/* globals $, document */
 'use strict';
 
-var app = function() {
+var app = (function() {
   function _init() {
     $(document).foundation();
   }
@@ -8,7 +9,7 @@ var app = function() {
   return {
     init: _init
   };
-};
+})();
 
 $(document).ready(function() {
   app.init();
