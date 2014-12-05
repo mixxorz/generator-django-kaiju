@@ -67,9 +67,9 @@ If you don't have one yet, create your app
 heroku create
 ```
 
-Set DISABLE_COLLECTSTATIC to 1
+Set DJANGO_SETTINGS_MODULE to `<your_app_name>.settings.prod`
 ```
-heroku config:set DISABLE_COLLECTSTATIC=1
+heroku config:set DJANGO_SETTINGS_MODULE="<your_app_name>.settings.prod"
 ```
 
 Set DJANGO_SECRET_KEY to a django secret key. (You can generate one [here](http://www.miniwebtool.com/django-secret-key-generator/))
@@ -77,9 +77,9 @@ Set DJANGO_SECRET_KEY to a django secret key. (You can generate one [here](http:
 heroku config:set DJANGO_SECRET_KEY='<secret key>'
 ```
 
-Finally, explicitly set your buildpack to use Heroku's Python buildpack
+Finally, explicitly set your buildpack to use Heroku's Multi Buildpack
 ```
-heroku config:set BUILDPACK_URL='https://github.com/heroku/heroku-buildpack-python'
+heroku config:set BUILDPACK_URL='https://github.com/heroku/heroku-buildpack-multi'
 ```
 
 You can now push your app to heroku
@@ -88,6 +88,9 @@ git push heroku master
 ```
 
 ## Changelog
+
+**1.2**
+- Switched over to using multi buildpacks for faster deployment
 
 **1.1**
 - Removed the need for django-admin to be in PATH during scaffolding
