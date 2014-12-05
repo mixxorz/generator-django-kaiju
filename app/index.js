@@ -167,8 +167,14 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
   end: function() {
     if (!this.options['skip-install']) {
       this.installDependencies();
-      this.log(chalk.yellow('Also installing Python dependencies with pip.'));
-      this.spawnCommand('pip install -r requirements/dev.txt');
+
+      // Check if inside virtualenv
+      if(process.env.VIRTUAL_ENV) {
+        this.log(chalk.yellow('Also installing Python dependencies with pip.'));
+        this.spawnCommand('pip install -r requirements/dev.txt');
+      } else {
+        this.log(chalk.yellow('You are not in a Python Virtualenv. Install the Python dependencies manually using `pip install -r requirements/dev.txt`.'));
+      }
     }
   }
 });
