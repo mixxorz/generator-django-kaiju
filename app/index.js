@@ -159,24 +159,7 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
       if (this.features.indexOf('heroku') !== -1) {
         this.template('Procfile', 'Procfile');
         this.src.copy('requirements.txt', 'requirements.txt');
-        this.dest.mkdir('bin');
-        this.template('bin/cleanup', 'bin/cleanup');
-        this.template('bin/compile_assets', 'bin/compile_assets');
-        this.src.copy('bin/install_nodejs', 'bin/install_nodejs');
-        this.src.copy('bin/install_npm_packages', 'bin/install_npm_packages');
-        this.src.copy('bin/post_compile', 'bin/post_compile');
-
-        // This particular file requires us to change the underscore tags
-        // to {{ }}
-        this.template(
-          'bin/run_collectstatic',
-          'bin/run_collectstatic',
-          this, {
-            evaluate: /\{\{([\s\S]+?)\}\}/g,
-            interpolate: /\{\{=([\s\S]+?)\}\}/g,
-            escape: /\{\{-([\s\S]+?)\}\}/g
-          }
-        );
+        this.src.copy('_buildpacks', '.buildpacks');
       }
     }
   },
@@ -184,8 +167,14 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
   end: function() {
     if (!this.options['skip-install']) {
       this.installDependencies();
-      this.log(chalk.yellow('Also installing Python dependencies with pip.'));
-      this.spawnCommand('pip install -r requirements/dev.txt');
+
+      // Check if inside virtualenv
+      if(process.env.VIRTUAL_ENV) {
+        this.log(chalk.yellow('Also installing Python dependencies with pip.'));
+        this.spawnCommand('pip install -r requirements/dev.txt');
+      } else {
+        this.log(chalk.yellow('You are not in a Python Virtualenv. Install the Python dependencies manually using `pip install -r requirements/dev.txt`.'));
+      }
     }
   }
 });

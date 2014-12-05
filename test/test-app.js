@@ -70,12 +70,7 @@ describe('django-kaiju:app', function() {
       // Heroku
       'Procfile',
       'requirements.txt',
-      'bin/cleanup',
-      'bin/compile_assets',
-      'bin/install_nodejs',
-      'bin/install_npm_packages',
-      'bin/post_compile',
-      'bin/run_collectstatic',
+      '.buildpacks'
     ]);
   });
 });
