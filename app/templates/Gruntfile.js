@@ -234,4 +234,8 @@ module.exports = function(grunt) {
 
     // Copies fonts, optimizes images, concatenates and minifies css/js, all sent to dist/
     grunt.registerTask('build', ['clean', 'sass', 'copy', 'concat', 'cssmin', 'uglify', 'newer:imagemin']);
+
+    {{ if(_.contains(features, 'heroku')){ }}// For Heroku use
+    grunt.registerTask('heroku', ['build']);
+    {{ } }}
 };
