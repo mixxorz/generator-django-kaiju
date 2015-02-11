@@ -229,8 +229,8 @@ module.exports = function(grunt) {
         }
     });
 
-    // Default: Runs the django dev server and the grunt livereload server
-    grunt.registerTask('default', ['sass', 'concurrent']);
+    // Default: Compiles sass, watch files and runs the grunt livereload server
+    grunt.registerTask('default', ['sass', 'watch']);
 
     // Copies fonts, optimizes images, concatenates and minifies css/js, all sent to dist/
     grunt.registerTask('build', ['clean', 'sass', 'copy', 'concat', 'cssmin', 'uglify', 'newer:imagemin']);
