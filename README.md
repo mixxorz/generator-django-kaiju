@@ -90,7 +90,7 @@ git push heroku master
 
 ## Changelog
 
-**Unreleased**
+**1.3**
 * Added autoprefixer
 * Added gruntserver management command
 * Updated used `grunt-sass` version
