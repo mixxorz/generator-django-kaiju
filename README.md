@@ -94,6 +94,7 @@ git push heroku master
 * Added autoprefixer
 * Added gruntserver management command
 * Updated used `grunt-sass` version
+* Set the fallback DJANGO_SETTINGS_MODULE to `<app>.settings.dev` for convenience
 
 **1.2**
 * Switched over to using multi buildpacks for faster deployment
