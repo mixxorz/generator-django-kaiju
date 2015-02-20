@@ -181,6 +181,12 @@ module.exports = function(grunt) {
       }
     },
 
+    autoprefixer: {
+      dist: {
+        src: '<%= app %>/css/app.css'
+      },
+    },
+
     watch: {
       sass: {
         files: '<%= app %>/scss/**/*.scss',
@@ -196,10 +202,10 @@ module.exports = function(grunt) {
   });
 
   // Default: Compiles sass, watch files and runs the grunt livereload server
-  grunt.registerTask('default', ['sass', 'watch']);
+  grunt.registerTask('default', ['sass', 'autoprefixer', 'watch']);
 
   // Copies fonts, optimizes images, concatenates and minifies css/js, all sent to dist/
-  grunt.registerTask('build', ['clean', 'sass', 'copy', 'concat', 'cssmin', 'uglify', 'newer:imagemin']);
+  grunt.registerTask('build', ['clean', 'sass', 'autoprefixer', 'copy', 'concat', 'cssmin', 'uglify', 'newer:imagemin']);
   {{ if (_.contains(features, 'heroku')) { }}
   // For Heroku use
   grunt.registerTask('heroku', ['build']); {{ } }}
