@@ -107,6 +107,11 @@ var DjangoKaijuGenerator = yeoman.generators.Base.extend({
       this.src.copy('kaiju/apps/core/models.py', this.projectName + '/apps/core/models.py');
       this.src.copy('kaiju/apps/core/tests.py', this.projectName + '/apps/core/tests.py');
       this.src.copy('kaiju/apps/core/views.py', this.projectName + '/apps/core/views.py');
+      this.dest.mkdir(path.join(this.projectName, 'apps', 'core', 'management'));
+      this.dest.write(path.join(this.projectName, 'apps', 'core', 'management', '__init__.py'), '');
+      this.dest.mkdir(path.join(this.projectName, 'apps', 'core', 'management', 'commands'));
+      this.dest.write(path.join(this.projectName, 'apps', 'core', 'management', 'commands', '__init__.py'), '');
+      this.src.copy('kaiju/apps/core/management/commands/gruntserver.py', this.projectName + '/apps/core/management/commands/gruntserver.py');
       this.dest.mkdir(path.join(this.projectName, 'apps', 'core', 'migrations'));
       this.dest.write(path.join(this.projectName, 'apps', 'core', 'migrations', '__init__.py'), '');
       this.template('kaiju/apps/core/templates/base.html', this.projectName + '/apps/core/templates/base.html');
