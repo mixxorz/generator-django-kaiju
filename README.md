@@ -45,7 +45,8 @@ yo django-kaiju [appname]
 
 ### Grunt tasks
 
-* `grunt [default]`  - starts the Django development server and the live reloading server.
+* `python manage.py gruntserver`  - starts the Django development server and the live reloading server.
+* `grunt` - compiles sass and runs autoprefixer.
 * `grunt build` - concatenates, copies and minifies css/js/images into `core/assets/dist`
 
 ### Heroku
@@ -89,14 +90,19 @@ git push heroku master
 
 ## Changelog
 
+**Unreleased**
+* Added autoprefixer
+* Added gruntserver management command
+* Updated used `grunt-sass` version
+
 **1.2**
-- Switched over to using multi buildpacks for faster deployment
+* Switched over to using multi buildpacks for faster deployment
 
 **1.1**
-- Removed the need for django-admin to be in PATH during scaffolding
+* Removed the need for django-admin to be in PATH during scaffolding
 
 **1.0**
-- Initial release
+* Initial release
 
 
 ## License
